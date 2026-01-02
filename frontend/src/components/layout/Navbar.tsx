@@ -1,7 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { Home, ShoppingCart, Settings, LogIn } from 'lucide-react';
+import { Home, ShoppingCart, Settings, LogIn, User as UserIcon, LogOut } from 'lucide-react';
+import { useSessionStore } from '../../store/sessionStore';
+import { NeonButton } from '../ui/NeonButton';
 
 export default function Navbar() {
+  const user = useSessionStore((state) => state.user);
+  const clearSession = useSessionStore((state) => state.clearSession);
+
   return (
     <nav className="w-full bg-gradient-to-r from-indigo-600 via-sky-600 to-emerald-500 text-white shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -48,13 +53,25 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            <NavLink
-              to="/login"
-              className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/20"
-            >
-              <LogIn size={16} />
-              <span>Sign in</span>
-            </NavLink>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <div className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-sm font-medium text-white/90">
+                  <UserIcon size={16} />
+                  <span>{user.name ?? user.email}</span>
+                </div>
+                <NeonButton icon={LogOut} variant="ghost" onClick={clearSession}>
+                  Logout
+                </NeonButton>
+              </div>
+            ) : (
+              <NavLink
+                to="/login"
+                className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/20"
+              >
+                <LogIn size={16} />
+                <span>Sign in</span>
+              </NavLink>
+            )}
           </div>
         </div>
       </div>

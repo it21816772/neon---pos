@@ -5,7 +5,7 @@ import { OrdersService } from '../orders/orders.service';
 import PDFDocument from 'pdfkit';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer';
 
 @Injectable()
 export class ReceiptsService {

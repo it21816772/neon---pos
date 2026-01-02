@@ -20,6 +20,25 @@ const queryClient = new QueryClient({
   },
 });
 
+// If we have a stored token but not a user object, fetch the profile on app start.
+import { useSessionStore } from './store/sessionStore';
+import { meRequest } from './api/auth';
+
+const tokenOnStart = useSessionStore.getState().token;
+const userOnStart = useSessionStore.getState().user;
+if (tokenOnStart && !userOnStart) {
+  queryClient
+    .fetchQuery(['me'], meRequest)
+    .then((user) => {
+      // Reinstate token and set fetched user
+      useSessionStore.getState().setSession({ token: tokenOnStart, user });
+    })
+    .catch(() => {
+      // If fetching profile fails (expired token), clear session
+      useSessionStore.getState().clearSession();
+    });
+}
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
