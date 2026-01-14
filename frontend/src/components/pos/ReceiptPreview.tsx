@@ -8,7 +8,7 @@ export const ReceiptPreview = () => {
   const { subtotal, tax, total } = useCartStore((state) => state.getTotals());
 
   return (
-    <section className="glass-panel rounded-3xl p-6 shadow-inner shadow-black/60">
+    <section className="glass-panel rounded-3xl p-4 sm:p-6 shadow-inner shadow-black/60">
       <header className="flex items-center justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.4em] text-white/40">Receipt</p>
@@ -21,7 +21,7 @@ export const ReceiptPreview = () => {
           <p>No items yet.</p>
         ) : (
           items.map((item) => (
-            <div key={item.product.id} className="flex justify-between">
+            <div key={item.product.id} className="flex justify-between text-sm sm:text-base">
               <span>
                 {item.quantity} × {item.product.name}
               </span>

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 
 const neonButton = cva(
-  'inline-flex items-center gap-2 rounded-2xl border px-4 py-2 text-sm font-semibold uppercase tracking-wide transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight',
+  'inline-flex items-center gap-2 rounded-2xl border font-semibold uppercase tracking-wide transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight',
   {
     variants: {
       variant: {
@@ -12,7 +12,7 @@ const neonButton = cva(
         ghost: 'border-white/20 bg-transparent text-white hover:border-white/40',
       },
       density: {
-        compact: 'px-4 py-2',
+        compact: 'px-4 py-2 text-sm',
         spacious: 'px-5 py-3 text-base',
       },
     },

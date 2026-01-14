@@ -22,7 +22,7 @@ export const CartPanel = () => {
           {items.length} items
         </span>
       </header>
-      <div className="my-6 space-y-4 overflow-y-auto pr-2" style={{ maxHeight: 320 }}>
+      <div className="my-6 space-y-4 overflow-y-auto pr-2 max-h-[40vh] md:max-h-[320px]">
         {items.length === 0 ? (
           <div className="rounded-2xl border border-white/5 p-6 text-center text-white/60">
             Tap products to build the cart.
@@ -88,6 +88,29 @@ export const CartPanel = () => {
           Proceed to Payment
         </NeonButton>
       </footer>
+      <div className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] px-6 z-50">
+        {items.length ? (
+          <NeonButton
+            variant="purple"
+            density="spacious"
+            icon={LucideCreditCard}
+            onClick={() => { console.log('Proceed to Payment (mobile) clicked', { itemsLen: items.length }); setPaymentOpen(true); }}
+          >
+            Proceed to Payment
+          </NeonButton>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              // Friendly hint for users trying to proceed with empty cart
+              import('react-hot-toast').then((m) => m.default.error('Add items to the cart before proceeding to payment'));
+            }}
+            className="w-full rounded-2xl border border-white/10 bg-white/5 py-3 text-lg font-semibold text-white/50"
+          >
+            Add items to proceed
+          </button>
+        )}
+      </div>
     </section>
   );
 };

@@ -92,7 +92,7 @@ export const PaymentModal = () => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="glass-panel relative w-full max-w-2xl rounded-3xl border border-white/10 p-8 shadow-2xl"
+            className="glass-panel relative w-full max-w-[95vw] sm:max-w-2xl rounded-3xl border border-white/10 p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
@@ -104,7 +104,7 @@ export const PaymentModal = () => {
             >
               <LucideX size={16} />
             </button>
-            <div className="flex flex-col gap-6 lg:flex-row">
+            <div className="flex flex-col gap-6 md:flex-row">
               <div className="flex-1 space-y-4">
                 <p className="text-xs uppercase tracking-[0.3em] text-white/40">Method</p>
                 <div className="grid gap-3">
@@ -167,6 +167,17 @@ export const PaymentModal = () => {
                   Soft-copy receipt email is queued automatically.
                 </p>
               </div>
+            </div>
+            {/* Mobile sticky confirm button */}
+            <div className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] z-50 px-4">
+              <button
+                type="button"
+                className="w-full rounded-2xl border border-neon-purple/60 bg-neon-purple/20 py-3 text-lg font-semibold text-white shadow-glow-purple transition hover:bg-neon-purple/40 disabled:opacity-50"
+                onClick={handlePayment}
+                disabled={!items.length || isPending}
+              >
+                {isPending ? 'Processing…' : 'Confirm & Print'}
+              </button>
             </div>
           </motion.div>
         </motion.div>

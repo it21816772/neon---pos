@@ -34,15 +34,18 @@ export const ProductGrid = () => {
     <div className="glass-panel rounded-3xl p-4 shadow-glow-purple">
       <AutoSizer disableHeight>
         {({ width }) => {
-          const columnWidth = width / columnCount - 16;
+          const columnCount = width < 640 ? 1 : width < 1024 ? 2 : 3;
+          const columnWidth = Math.floor(width / columnCount - 16);
           const rowCount = Math.ceil(itemData.length / columnCount);
+          const rowHeight = columnCount === 1 ? 240 : columnCount === 2 ? 220 : 200;
+          const gridHeight = Math.max(Math.min(rowCount * rowHeight, 800), 300);
           return (
             <Grid
               columnCount={columnCount}
               columnWidth={columnWidth}
-              height={640}
+              height={gridHeight}
               rowCount={rowCount}
-              rowHeight={200}
+              rowHeight={rowHeight}
               width={width}
               itemData={itemData}
             >
