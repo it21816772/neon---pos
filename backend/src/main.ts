@@ -11,10 +11,18 @@ async function bootstrap() {
   const frontendUrl = configService.get('FRONTEND_URL') || 'http://localhost:5173';
 
   // CORS
-  app.enableCors({
-    origin: frontendUrl,
-    credentials: true,
-  });
+  if (process.env.NODE_ENV === 'production') {
+    app.enableCors({
+      origin: frontendUrl,
+      credentials: true,
+    });
+  } else {
+    // Development: allow any origin (useful for Electron and local dev servers)
+    app.enableCors({
+      origin: (origin, callback) => callback(null, true),
+      credentials: true,
+    });
+  }
 
   // Global validation pipe
   app.useGlobalPipes(
